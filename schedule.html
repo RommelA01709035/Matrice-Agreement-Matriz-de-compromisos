@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Compromisos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 10px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+        }
+        .container {
+            display: none;
+            padding: 20px;
+        }
+        .container.active {
+            display: block;
+        }
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .cell {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            min-width: 200px;
+            background-color: white;
+        }
+        .urgent-important { background-color: #ffdddd; }
+        .urgent-not-important { background-color: #fff5cc; }
+        .not-urgent-important { background-color: #ddffdd; }
+        .not-urgent-not-important { background-color: #e6e6e6; }
+        .card {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .card.completed {
+            text-decoration: line-through;
+            background-color: #d9ffd9;
+        }
+        button {
+            margin: 5px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#" data-day="monday">Lunes</a>
+        <a href="#" data-day="tuesday">Martes</a>
+        <a href="#" data-day="wednesday">Miércoles</a>
+        <a href="#" data-day="thursday">Jueves</a>
+        <a href="#" data-day="friday">Viernes</a>
+        <a href="#" data-day="saturday">Sábado</a>
+        <a href="#" data-day="sunday">Domingo</a>
+    </div>
+    <div id="monday" class="container">
+        <h2>Lunes</h2>
+        <div class="grid" data-day="monday">
+            <div class="cell urgent-important" id="monday-urgent-important">
+                <h3>Muy Importante y Muy Urgente</h3>
+                <button onclick="createCard('monday-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell urgent-not-important" id="monday-urgent-not-important">
+                <h3>No Tanto Importante pero Muy Urgente</h3>
+                <button onclick="createCard('monday-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-important" id="monday-not-urgent-important">
+                <h3>Muy Importante pero No Tanto Urgente</h3>
+                <button onclick="createCard('monday-not-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-not-important" id="monday-not-urgent-not-important">
+                <h3>No Tanto Importante ni Urgente</h3>
+                <button onclick="createCard('monday-not-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+        </div>
+    </div>
+    <div id="monday" class="container">
+        <h2>Lunes</h2>
+        <div class="grid" data-day="monday">
+            <div class="cell urgent-important" id="monday-urgent-important">
+                <h3>Muy Importante y Muy Urgente</h3>
+                <button onclick="createCard('monday-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell urgent-not-important" id="monday-urgent-not-important">
+                <h3>No Tanto Importante pero Muy Urgente</h3>
+                <button onclick="createCard('monday-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-important" id="monday-not-urgent-important">
+                <h3>Muy Importante pero No Tanto Urgente</h3>
+                <button onclick="createCard('monday-not-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-not-important" id="monday-not-urgent-not-important">
+                <h3>No Tanto Importante ni Urgente</h3>
+                <button onclick="createCard('monday-not-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tuesday" class="container">
+        <h2>Martes</h2>
+        <div class="grid" data-day="tuesday">
+            <div class="cell urgent-important" id="tuesday-urgent-important">
+                <h3>Muy Importante y Muy Urgente</h3>
+                <button onclick="createCard('tuesday-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell urgent-not-important" id="tuesday-urgent-not-important">
+                <h3>No Tanto Importante pero Muy Urgente</h3>
+                <button onclick="createCard('tuesday-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-important" id="tuesday-not-urgent-important">
+                <h3>Muy Importante pero No Tanto Urgente</h3>
+                <button onclick="createCard('tuesday-not-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-not-important" id="tuesday-not-urgent-not-important">
+                <h3>No Tanto Importante ni Urgente</h3>
+                <button onclick="createCard('tuesday-not-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="wednesday" class="container">
+        <h2>Miércoles</h2>
+        <div class="grid" data-day="wednesday">
+            <div class="cell urgent-important" id="wednesday-urgent-important">
+                <h3>Muy Importante y Muy Urgente</h3>
+                <button onclick="createCard('wednesday-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell urgent-not-important" id="wednesday-urgent-not-important">
+                <h3>No Tanto Importante pero Muy Urgente</h3>
+                <button onclick="createCard('wednesday-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-important" id="wednesday-not-urgent-important">
+                <h3>Muy Importante pero No Tanto Urgente</h3>
+                <button onclick="createCard('wednesday-not-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-not-important" id="wednesday-not-urgent-not-important">
+                <h3>No Tanto Importante ni Urgente</h3>
+                <button onclick="createCard('wednesday-not-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="thursday" class="container">
+        <h2>Jueves</h2>
+        <div class="grid" data-day="thursday">
+            <div class="cell urgent-important" id="thursday-urgent-important">
+                <h3>Muy Importante y Muy Urgente</h3>
+                <button onclick="createCard('thursday-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell urgent-not-important" id="thursday-urgent-not-important">
+                <h3>No Tanto Importante pero Muy Urgente</h3>
+                <button onclick="createCard('thursday-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-important" id="thursday-not-urgent-important">
+                <h3>Muy Importante pero No Tanto Urgente</h3>
+                <button onclick="createCard('thursday-not-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-not-important" id="thursday-not-urgent-not-important">
+                <h3>No Tanto Importante ni Urgente</h3>
+                <button onclick="createCard('thursday-not-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+        </div>
+    </div>
+    <div id="friday" class="container">
+        <h2>Viernes</h2>
+        <div class="grid" data-day="friday">
+            <div class="cell urgent-important" id="friday-urgent-important">
+                <h3>Muy Importante y Muy Urgente</h3>
+                <button onclick="createCard('friday-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell urgent-not-important" id="friday-urgent-not-important">
+                <h3>No Tanto Importante pero Muy Urgente</h3>
+                <button onclick="createCard('friday-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-important" id="friday-not-urgent-important">
+                <h3>Muy Importante pero No Tanto Urgente</h3>
+                <button onclick="createCard('friday-not-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-not-important" id="friday-not-urgent-not-important">
+                <h3>No Tanto Importante ni Urgente</h3>
+                <button onclick="createCard('friday-not-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="saturday" class="container">
+        <h2>Sábado</h2>
+        <div class="grid" data-day="saturday">
+            <div class="cell urgent-important" id="saturday-urgent-important">
+                <h3>Muy Importante y Muy Urgente</h3>
+                <button onclick="createCard('saturday-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell urgent-not-important" id="saturday-urgent-not-important">
+                <h3>No Tanto Importante pero Muy Urgente</h3>
+                <button onclick="createCard('saturday-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-important" id="saturday-not-urgent-important">
+                <h3>Muy Importante pero No Tanto Urgente</h3>
+                <button onclick="createCard('saturday-not-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-not-important" id="saturday-not-urgent-not-important">
+                <h3>No Tanto Importante ni Urgente</h3>
+                <button onclick="createCard('saturday-not-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="sunday" class="container">
+        <h2>Domingo</h2>
+        <div class="grid" data-day="sunday">
+            <div class="cell urgent-important" id="sunday-urgent-important">
+                <h3>Muy Importante y Muy Urgente</h3>
+                <button onclick="createCard('sunday-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell urgent-not-important" id="sunday-urgent-not-important">
+                <h3>No Tanto Importante pero Muy Urgente</h3>
+                <button onclick="createCard('sunday-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-important" id="sunday-not-urgent-important">
+                <h3>Muy Importante pero No Tanto Urgente</h3>
+                <button onclick="createCard('sunday-not-urgent-important')">Agregar Tarjeta</button>
+            </div>
+            <div class="cell not-urgent-not-important" id="sunday-not-urgent-not-important">
+                <h3>No Tanto Importante ni Urgente</h3>
+                <button onclick="createCard('sunday-not-urgent-not-important')">Agregar Tarjeta</button>
+            </div>
+        </div>
+    </div>
+    <button onclick="downloadPDF()">Descargar PDF</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            loadCards();
+            checkMidnight();
+            showDay('monday');
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function() {
+                    showDay(this.getAttribute('data-day'));
+                });
+            });
+        });
+
+        function showDay(day) {
+            document.querySelectorAll('.container').forEach(container => {
+                container.classList.remove('active');
+            });
+            document.getElementById(day).classList.add('active');
+        }
+
+        function createCard(zoneId) {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.innerHTML = `
+                <input type="text" placeholder="Título">
+                <input type="time">
+                <button onclick="editCard(this)">Editar</button>
+                <button onclick="deleteCard(this)">Eliminar</button>
+                <button onclick="completeCard(this)">Completar</button>
+            `;
+            document.getElementById(zoneId).appendChild(card);
+            saveCards();
+        }
+
+        function editCard(button) {
+            const card = button.parentElement;
+            const inputs = card.querySelectorAll('input');
+            inputs.forEach(input => input.disabled = !input.disabled);
+            saveCards();
+        }
+
+        function deleteCard(button) {
+            const card = button.parentElement;
+            card.remove();
+            saveCards();
+        }
+
+        function completeCard(button) {
+            const card = button.parentElement;
+            card.classList.toggle('completed');
+            saveCards();
+        }
+
+        function saveCards() {
+            const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+            const cardsData = {};
+            days.forEach(day => {
+                const zones = ['urgent-important', 'urgent-not-important', 'not-urgent-important', 'not-urgent-not-important'];
+                cardsData[day] = {};
+                zones.forEach(zone => {
+                    const zoneId = `${day}-${zone}`;
+                    const zoneElement = document.getElementById(zoneId);
+                    const cards = zoneElement.querySelectorAll('.card');
+                    cardsData[day][zone] = Array.from(cards).map(card => {
+                        return {
+                            title: card.querySelector('input[type="text"]').value,
+                            time: card.querySelector('input[type="time"]').value,
+                            completed: card.classList.contains('completed')
+                        };
+                    });
+                });
+            });
+            localStorage.setItem('cardsData', JSON.stringify(cardsData));
+        }
+
+        function loadCards() {
+            const cardsData = JSON.parse(localStorage.getItem('cardsData'));
+            if (!cardsData) return;
+
+            const days = Object.keys(cardsData);
+            days.forEach(day => {
+                const zones = Object.keys(cardsData[day]);
+                zones.forEach(zone => {
+                    const zoneId = `${day}-${zone}`;
+                    const zoneElement = document.getElementById(zoneId);
+                    cardsData[day][zone].forEach(cardData => {
+                        const card = document.createElement('div');
+                        card.classList.add('card');
+                        if (cardData.completed) card.classList.add('completed');
+                        card.innerHTML = `
+                            <input type="text" value="${cardData.title}" ${cardData.completed ? 'disabled' : ''}>
+                            <input type="time" value="${cardData.time}" ${cardData.completed ? 'disabled' : ''}>
+                            <button onclick="editCard(this)">Editar</button>
+                            <button onclick="deleteCard(this)">Eliminar</button>
+                            <button onclick="completeCard(this)">Completar</button>
+                        `;
+                        zoneElement.appendChild(card);
+                    });
+                });
+            });
+        }
+
+        function checkMidnight() {
+            const now = new Date();
+            const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+            const timeToMidnight = midnight.getTime() - now.getTime();
+
+            setTimeout(() => {
+                const cardsData = JSON.parse(localStorage.getItem('cardsData'));
+                if (!cardsData) return;
+
+                const days = Object.keys(cardsData);
+                days.forEach(day => {
+                    const zones = Object.keys(cardsData[day]);
+                    zones.forEach(zone => {
+                        cardsData[day][zone] = cardsData[day][zone].filter(card => !card.completed);
+                    });
+                });
+
+                localStorage.setItem('cardsData', JSON.stringify(cardsData));
+                location.reload();
+            }, timeToMidnight);
+        }
+
+
+
+        async function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    let y = 10;
+    const margin = 10;
+    const pageHeight = doc.internal.pageSize.height;
+
+    function addText(text) {
+        if (y + margin > pageHeight) {
+            doc.addPage();
+            y = margin;
+        }
+        doc.text(text, margin, y);
+        y += 10;
+    }
+
+    for (const day of days) {
+        const dayElement = document.getElementById(day);
+        const zones = dayElement.querySelectorAll('.grid .cell');
+
+        addText(day.charAt(0).toUpperCase() + day.slice(1));
+        
+        zones.forEach(zone => {
+            const zoneId = zone.id;
+            const cards = zone.querySelectorAll('.card');
+            addText(zoneId.replace(/-/g, ' '));
+
+            cards.forEach(card => {
+                const title = card.querySelector('input[type="text"]').value;
+                const time = card.querySelector('input[type="time"]').value;
+                const completed = card.classList.contains('completed') ? ' (Completado)' : '';
+                addText(`- ${title} ${time}${completed}`);
+            });
+
+            addText(''); 
+        });
+
+        addText(''); 
+    }
+
+    doc.save('tarjetas.pdf');
+}
+
+    </script>
+</body>
+</html>
